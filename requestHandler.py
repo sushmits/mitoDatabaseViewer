@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from flask import Flask, render_template
 import sqlite3
 """                        tableNames: ['patient_nucleobase','pathogenic_prob'],
@@ -49,12 +49,12 @@ def getTableContents(tableName):
                 eachLine="{"
                 #print(len(listR))
                 for i in range(len(listR)):
-                        eachLine+="'"+attributeNames[i]+"':'"+listR[i]+"',"
+                        eachLine+='"'+attributeNames[i]+'":"'+listR[i]+'",'
                 eachLine=eachLine[:len(eachLine)-1]
-                eachLine+="},"
+                eachLine+='},'
                 output+=eachLine
         output+=']'
-        jsonTableContents='{"tableContents":"'+str(output).replace("""u'""","'")+""""}"""
+        jsonTableContents="'"+str(output).replace(""",]""","]")+"'"
         return jsonTableContents.replace('u"','"')
         #return str(str(results[1])+'\n'+str(attributeNames))
 
