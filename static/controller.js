@@ -1,5 +1,4 @@
 // function to update teh text input of the slider.
-const CADDYDIR = "src/"
 function updateTextInput(slideAmount , sliderAmountVar) {
         var sliderInput = document.getElementById(sliderAmountVar);
         sliderInput.value = slideAmount;

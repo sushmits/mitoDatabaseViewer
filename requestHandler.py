@@ -12,7 +12,7 @@ app = Flask(__name__)
 def index():
    return render_template("index.html")
 
-@app.route('/renderAttributeNames/<tableName>')
+@app.route('/renderAttributeNames/<tableName>', methods=['POST','GET'])
 def getTableAttributes(tableName):
         con = sqlite3.connect("mito.db")
         cur = con.cursor()
@@ -27,7 +27,7 @@ def getTableAttributes(tableName):
         jsonAttributeNames+="""]"}"""
         return str(jsonAttributeNames)
 
-@app.route('/renderTableContents/<tableName>')
+@app.route('/renderTableContents/<tableName>', methods=['POST','GET'])
 def getTableContents(tableName):
         con = sqlite3.connect("mito.db")
         cur = con.cursor()
@@ -54,7 +54,7 @@ def getTableContents(tableName):
                 eachLine+='},'
                 output+=eachLine
         output+=']'
-        jsonTableContents="'"+str(output).replace(""",]""","]")+"'"
+        jsonTableContents=""+str(output).replace(""",]""","]")+""
         return jsonTableContents.replace('u"','"')
         #return str(str(results[1])+'\n'+str(attributeNames))
 

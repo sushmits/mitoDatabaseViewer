@@ -29,18 +29,74 @@ class CreationOfButtons extends React.Component {
 		super(props);
 		this.state = {
 			tableNames: ['patient_nucleobase','pathogenic_prob'],
-			attributes:['seq', 'patient_id'],
+			attributes:['patient_id','seq','pos','left_flank','ref_allele','right_flank','Variant','Cov_variant_minus','Cov_minus','Cov_variant_plus','Cov_plus','freq_variant_minus','freq_variant_plus'],
 			operatorAndOr: ['And', 'Or'],
 			condition: ['=','like','!=','<=','>=','<','>'],
 			data: '[{"seq":"ATP6","patient_id":"8527"},{"seq":"ATP8","patient_id":"8366"},{"seq":"ZTP12" , "patient_id":"2334"} , {"seq":"Bdfd","patient_id":"1000000"}]',
-			columns: [{
-    Header: 'Sequence',
-    accessor: 'seq' // String-based value accessors!
-  }, {
-    Header: 'Patient_Id',
-    accessor: 'patient_id',
-    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-  }]
+//		columns: [{
+//    Header: 'Sequence',
+//    accessor: 'seq' // String-based value accessors!
+//  }, {
+//    Header: 'Patient_Id',
+//    accessor: 'patient_id',
+//    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+//  }]
+
+columns:[
+{
+	Header: 'patient_id',
+	accessor: 'patient_id'
+},
+{
+	Header: 'seq',
+	accessor: 'seq'
+},
+{
+	Header: 'pos',
+	accessor: 'pos'
+},
+{
+	Header: 'left_flank',
+	accessor: 'left_flank'
+},
+{
+	Header: 'ref_allele',
+	accessor: 'ref_allele'
+},
+{
+	Header: 'right_flank',
+	accessor: 'right_flank'
+},
+{
+	Header: 'Variant',
+	accessor: 'Variant'
+},
+{
+	Header: 'Cov_variant_minus',
+	accessor: 'Cov_variant_minus'
+},
+{
+	Header: 'Cov_minus',
+	accessor: 'Cov_minus'
+},
+{
+	Header: 'Cov_variant_plus',
+	accessor: 'Cov_variant_plus'
+},
+{
+	Header: 'Cov_plus',
+	accessor: 'Cov_plus'
+}
+,
+{
+	Header: 'freq_variant_minus',
+	accessor: 'freq_variant_minus'
+},
+{
+	Header: 'freq_variant_plus',
+	accessor: 'freq_variant_plus'
+}
+]
 		};
 
  
@@ -69,9 +125,79 @@ class CreationOfButtons extends React.Component {
 		);
 
 	}
+//	{/*updateDiv(){
+//		let jsonParsedData = JSON.parse(this.state.data)
+//		ReactDOM.render(<ReactTable data={jsonParsedData} columns={this.state.columns} defaultPageSize={5}/> , document.getElementById('updateTableId')) ;
+
+//	}*/}
+
 	updateDiv(){
-		let jsonParsedData = JSON.parse(this.state.data)
-		ReactDOM.render(<ReactTable data={jsonParsedData} columns={this.state.columns} defaultPageSize={5}/> , document.getElementById('updateTableId')) ;
+	let columnsList = [
+{
+	Header: 'patient_id',
+	accessor: 'patient_id'
+},
+{
+	Header: 'seq',
+	accessor: 'seq'
+},
+{
+	Header: 'pos',
+	accessor: 'pos'
+},
+{
+	Header: 'left_flank',
+	accessor: 'left_flank'
+},
+{
+	Header: 'ref_allele',
+	accessor: 'ref_allele'
+},
+{
+	Header: 'right_flank',
+	accessor: 'right_flank'
+},
+{
+	Header: 'Variant',
+	accessor: 'Variant'
+},
+{
+	Header: 'Cov_variant_minus',
+	accessor: 'Cov_variant_minus'
+},
+{
+	Header: 'Cov_minus',
+	accessor: 'Cov_minus'
+},
+{
+	Header: 'Cov_variant_plus',
+	accessor: 'Cov_variant_plus'
+},
+{
+	Header: 'Cov_plus',
+	accessor: 'Cov_plus'
+}
+,
+{
+	Header: 'freq_variant_minus',
+	accessor: 'freq_variant_minus'
+},
+{
+	Header: 'freq_variant_plus',
+	accessor: 'freq_variant_plus'
+}
+]
+	$.ajax({
+                 url: "/renderTableContents/patient_nucleobase",
+                 type: "POST",
+                 datatype: "text/html",
+                 data:"",
+                 success: function(response){
+		//console.log(JSON.parse(response))
+		let jsonParsedData = JSON.parse(response)
+		ReactDOM.render(<ReactTable data={jsonParsedData} columns={columnsList} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
+                 }
+});
 
 	}
 
