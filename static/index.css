@@ -1,0 +1,189 @@
+body {margin:0; min-width: 670px;}
+
+.icon-bar a {
+    text-align: center;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 16px;
+}
+
+
+.heading {
+    font-family:Verdana;
+    color: white;
+    padding-left:25px;
+    text-align: centre;
+
+}
+
+.para {
+    width: 100%;
+    color: #008080;
+    font-size: 14px;
+    font-weight:bold;
+    font-family:Verdana;
+}
+
+.pick_barcode{
+    padding-left:15px;
+    width:100%;
+    height:33px;
+    font-size: 20px;
+}
+
+.submit_button {
+
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+}
+
+.submit_button:hover {
+    color: #4863A0;
+    border: 2px solid black;
+}
+
+.slidecontainer{
+    width:60%;
+}
+
+/* Slider styling*/
+.slider {
+    -webkit-appearance: none;
+    width: 10%;
+    height: 5px;
+    background: #048ba8;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: LightSeaGreen;
+    cursor: pointer;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #2e4057;
+    cursor: pointer;
+}
+
+
+.subheadings{
+    padding-left:5px;
+    width:100%;
+    height:33px;
+    font-family:Verdana;
+    font-size: 20px;
+}
+
+
+
+/* Image tag */
+
+img {
+  width: 400px;
+  height: 227px;
+
+}
+
+
+
+th {
+    font-size: 16px;
+}
+#selectionTable{
+    max-width: 422px;
+    margin-left: 3px;
+}
+
+#selectionTable tbody tr td:first-child a {
+    font-size: 15px;
+}
+
+#selectionTable tbody tr td:first-child {
+    max-width: 5px;
+}
+
+#selectionTable tbody tr td:nth-child(2) {
+   font-size: 15px;
+}
+
+#selectionTable tr th:nth-child(2) {
+    width:10%;
+}
+
+.input_table {
+    width: 75%;
+    margin-left: 1px;
+    max-width:300px ;
+}
+
+.validated_barcode_table table
+{
+
+    border: 1px solid #ddd;
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 400px;
+}
+
+.validated_barcode_table{
+    margin-left: 10px;
+}
+
+.validated_barcode_table th, td {
+    padding: 2px;
+}
+
+.validated_barcode_table tr th:first-child{
+    width: 10%;
+}
+
+.validated_barcode_table tr th:nth-child(2){
+    width: 33%;
+}
+
+.validated_barcode_table tr th:nth-child(3){
+    width: 38%;
+}
+
+.download_links {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even){
+    background-color: #eaeffa;
+}
+
+.error_message{
+    font-size:16px;
+    font-family:Verdana;
+    color:Red;
+}
+
+td, th {
+    word-wrap: break-word;
+}
+
+table {
+    table-layout:fixed;
+}
+
+textarea {
+    width:100%;
+}

@@ -1,0 +1,108 @@
+CTYPE html-->
+<html>
+    <head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46396909-2"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-46396909-2');
+	</script>
+        <script type = "text/javascript" src = "{{ url_for('static', filename = 'index.js') }}" ></script>
+        <script type = "stylesheet" src = "{{ url_for('static', filename = 'index.css') }}" ></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../src/index.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <!--script src="controller.js"></script-->
+	 <!--script src="reactController.js" type="text/babel"></script-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  <!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
+
+<!-- JS -->
+<script src="https://unpkg.com/react-table@latest/react-table.js"></script>
+<script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>
+
+<script>
+  var ReactTable = window.ReactTable.default
+</script>
+
+	<script src="../static/index.js" type="text/babel"></script>
+	<title> Mito Database Visualization </title>
+    </head>
+
+
+<div class="row" style="background-color: #2E4053;">
+	<!--div class="col-lg-5 heading"-->
+	<div class="col-xs-12 heading">
+		<h1 style=""> Mito Database Visualization </h1>
+
+	</div>
+
+	<!--div class="row icon-bar col-lg-4" style="margin-right:100px;"-->
+	<div class="row icon-bar col-xs-12" style="margin-right:100px;">
+
+		<div class="col-xs-3" style="background-color:#0066cc; text-align:center;" >
+			<!--a href="http://girihlet.com/ravi/web/barcode_diversity/help.html" class="btn btn-primary"> Help </a-->
+			<a style="color:white;" href="http://girihlet.com/ravi/web/barcode_diversity/help.html" > Help </a>
+		</div>
+		<div class="col-xs-3" style="background-color:#0066cc; text-align:center;" >
+			<a style="color:white;" href="http://girihlet.com/ravi/web/barcode_diversity/doc/Barcode_caddy.pdf"> Details </a>
+		</div>
+		<div class="col-xs-3" style="background-color:#0066cc; text-align:center;" >
+		<a style="color:white;" href="http://girihlet.com/tools.html" > Tools </a>
+		</div>
+
+	<!--/div>
+	<div style="padding-right: 170px; padding-top: 20px; float:right;">
+			<div style=" padding-top: 20px;"-->
+		<div class="col-xs-3" style="background-color:#0066cc; text-align:center;" >
+			<!--a style="color:white;" href="mailto:ravi@girihlet.com" > Feedback </a-->
+			<a style="color:white;" href="#" onclick="showFeedback();event.preventDefault();" > Feedback </a>
+		</div>
+		<!--/div-->
+	</div>
+</div>
+<div class="para" style="padding-left:15px; " >
+	<br>
+	<!--p>
+		Barcode Caddy selects an optimum set of barcodes for your sample pool. Custom (or pre-selected) barcode sets can be validated and/or added while generating new sets.
+
+	</p-->
+        <p>
+		The below is visualization of Patient DNA data.
+       </p>
+</div>
+
+
+<div class="row" >
+		<div style="background-color: #eafafa; min-height:633px; padding-left:20px;"> <br>
+
+                <h4 class="subheadings">MITO DATABASE</h4>
+  		<div class="dropdown">
+
+</div>
+
+<div id="queryCreationDivId" onload="renderQueryCreationTaskBar()" class="row">
+
+</div>
+<div id="updateTableId">
+</div>
+
+</div>
+</body>
+</html>"
+
+

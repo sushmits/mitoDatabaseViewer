@@ -1,0 +1,19 @@
+Variant_ID,Type,AscendingDNA_change_genomic_hg19,GERP,dbSNP_ID,number_in_normal,freq,Sources
+1458,subst,m.10398A>G,-10.3,rs2853826,41,a:g.0.97 ;a:g.0.98 ;a:g.0.97 ;a:g.0.95 ;a:g.0.96 ;a:g.0.96 ;a:g.0.98 ;a:g.0.96 ;a:g.0.97 ;a:g.0.94 ;a:g.0.93 ;a:g.0.93 ;a:g.0.95 ;a:g.0.93 ;a:g.0.98 ;a:g.0.99 ;a:g.0.98 ;a:g.0.97 ;a:g.0.97 ;a:g.0.95 ;a:g.0.95 ;a:g.0.97 ;a:g.0.89 ;a:g.0.97 ;a:g.0.94 ;a:g.0.94 ;a:g.0.92 ;a:g.0.94 ;a:g.0.96 ;a:g.0.95 ;a:g.0.97 ;a:g.0.95 ;a:g.0.94 ;a:g.0.96 ;a:g.0.97 ;a:g.0.96 ;a:g.0.94 ;a:g.0.96 ;a:g.0.95 ;a:g.0.94 ;a:g.0.98 ,; clinVar; Mitomap; Ensembl;
+1477,subst,m.12338T>C,3.28,rs201863060,2,t:a.0.07 ;t:a.0.05 ,; clinVar; Mitomap;
+1344,subst,m.3394T>C,3.56,rs41460449,1,t:a.0.05 ,; clinVar; Mitomap; Ensembl;
+1351,subst,m.3796A>G,-6.85,rs28357970,4,a:t.0.94 ;a:c.0.15 ;a:c.0.10 ;a:t.0.95 ,; clinVar; Mitomap; Ensembl;
+1480,subst,m.12811T>C,-1.31,rs199974018,4,t:c.0.99 ;t:c.0.95 ;t:c.0.93 ;t:c.0.94 ,; clinVar; Mitomap; ensembl;
+1487,subst,m.13708G>A,-5.73,rs28359178,3,g:a.0.98 ;g:a.0.94 ;g:a.0.93 ,; clinVar; Mitomap; Ensembl;
+1352,subst,m.3796A>T,-6.85,rs28357970,4,a:t.0.94 ;a:c.0.15 ;a:c.0.10 ;a:t.0.95 ,; clinvar; ensembl;
+1294,subst,m.961T>C,-8.88,rs3888511,2,t:c.0.72 ;t:c.0.76 ,; clinvar; ensembl;
+1295,subst,m.961T>G,-8.88,rs3888511,2,t:c.0.72 ;t:c.0.76 ,; clinVar; Mitomap; Ensembl;
+1340,subst,m.3308T>C,3.08,rs28358582,5,t:c.0.96 ;t:c.0.97 ;t:c.0.93 ;t:c.0.92 ;t:c.0.94 ,; clinvar; ensembl;
+1341,subst,m.3308T>G,3.08,rs28358582,5,t:c.0.96 ;t:c.0.97 ;t:c.0.93 ;t:c.0.92 ;t:c.0.94 ,; clinVar; Mitomap; Ensembl;
+1310,subst,m.1291T>C,-8.65,rs267606620,1,t:c.0.94 ,; clinVar; Mitomap; Ensembl;
+1338,subst,m.3290T>C,-8.11,rs199474665,1,t:c.0.95 ,; clinVar; Mitomap; Ensembl;
+
+1355,subst,m.4025C>T,-1.52,rs397515509,1,c:t.0.98 ,; clinVar; ensembl;
+1389,subst,m.5814T>C,-3.16,rs200077222,1,t:c.0.94 ,; clinVar; Mitomap;
+4922,subst,m.8618T>C,2.96,rs28358885,2,t:c.0.95 ;t:c.0.95 ,; clinVar;
+1511,subst,m.15257G>A,3.34,rs41518645,1,g:a.0.90 ,; clinVar; Mitomap; Ensembl;
