@@ -42,61 +42,6 @@ class CreationOfButtons extends React.Component {
 //    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
 //  }]
 
-columns:[
-{
-	Header: 'patient_id',
-	accessor: 'patient_id'
-},
-{
-	Header: 'seq',
-	accessor: 'seq'
-},
-{
-	Header: 'pos',
-	accessor: 'pos'
-},
-{
-	Header: 'left_flank',
-	accessor: 'left_flank'
-},
-{
-	Header: 'ref_allele',
-	accessor: 'ref_allele'
-},
-{
-	Header: 'right_flank',
-	accessor: 'right_flank'
-},
-{
-	Header: 'Variant',
-	accessor: 'Variant'
-},
-{
-	Header: 'Cov_variant_minus',
-	accessor: 'Cov_variant_minus'
-},
-{
-	Header: 'Cov_minus',
-	accessor: 'Cov_minus'
-},
-{
-	Header: 'Cov_variant_plus',
-	accessor: 'Cov_variant_plus'
-},
-{
-	Header: 'Cov_plus',
-	accessor: 'Cov_plus'
-}
-,
-{
-	Header: 'freq_variant_minus',
-	accessor: 'freq_variant_minus'
-},
-{
-	Header: 'freq_variant_plus',
-	accessor: 'freq_variant_plus'
-}
-]
 		};
 
  
@@ -132,70 +77,17 @@ columns:[
 //	}*/}
 
 	updateDiv(){
-	let columnsList = [
-{
-	Header: 'patient_id',
-	accessor: 'patient_id'
-},
-{
-	Header: 'seq',
-	accessor: 'seq'
-},
-{
-	Header: 'pos',
-	accessor: 'pos'
-},
-{
-	Header: 'left_flank',
-	accessor: 'left_flank'
-},
-{
-	Header: 'ref_allele',
-	accessor: 'ref_allele'
-},
-{
-	Header: 'right_flank',
-	accessor: 'right_flank'
-},
-{
-	Header: 'Variant',
-	accessor: 'Variant'
-},
-{
-	Header: 'Cov_variant_minus',
-	accessor: 'Cov_variant_minus'
-},
-{
-	Header: 'Cov_minus',
-	accessor: 'Cov_minus'
-},
-{
-	Header: 'Cov_variant_plus',
-	accessor: 'Cov_variant_plus'
-},
-{
-	Header: 'Cov_plus',
-	accessor: 'Cov_plus'
-}
-,
-{
-	Header: 'freq_variant_minus',
-	accessor: 'freq_variant_minus'
-},
-{
-	Header: 'freq_variant_plus',
-	accessor: 'freq_variant_plus'
-}
-]
 	$.ajax({
                  url: "/renderTableContents/patient_nucleobase",
                  type: "POST",
                  datatype: "text/html",
                  data:"",
                  success: function(response){
-		//console.log(JSON.parse(response))
+		//console.log(response["content"])
 		let jsonParsedData = JSON.parse(response)
-		ReactDOM.render(<ReactTable data={jsonParsedData} columns={columnsList} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
+		console.log(jsonParsedData["content"])
+		//let jsonParsedData = response
+		ReactDOM.render(<ReactTable data={jsonParsedData["content"]} columns={jsonParsedData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
                  }
 });
 

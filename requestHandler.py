@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, render_template
 import sqlite3
+import json
 """                        tableNames: ['patient_nucleobase','pathogenic_prob'],
                         attributes:['seq', 'patient_id'],
                         operatorAndOr: ['And', 'Or'],
@@ -29,35 +30,53 @@ def getTableAttributes(tableName):
 
 @app.route('/renderTableContents/<tableName>', methods=['POST','GET'])
 def getTableContents(tableName):
+        jsonTable = {}
+	jsonTable['columns'] = createColumnList(tableName)
+	jsonTable['content'] = geTableContents(tableName)
+
+	return json.dumps(jsonTable)
+
+def geTableContents(tableName):
         con = sqlite3.connect("mito.db")
         cur = con.cursor()
 
-        cur.execute("PRAGMA table_info("+tableName+")")
-        attributeInformation=cur.fetchall()
-        attributeNamesCommaSeparated =""
-        for i in attributeInformation:
-                attributeNamesCommaSeparated+=i[1]+','
-        attributeNamesCommaSeparated=attributeNamesCommaSeparated[:len(attributeNamesCommaSeparated)-1]
-        attributeNames=attributeNamesCommaSeparated.split(",")
-        #print(str(attributeNames))
         cur.execute("Select * from "+tableName)
         rawTableContents = cur.fetchall()
-        #print(str(results))
-        output='['
-        for r in rawTableContents:
-                listR = list(r)
-                eachLine="{"
-                #print(len(listR))
-                for i in range(len(listR)):
-                        eachLine+='"'+attributeNames[i]+'":"'+listR[i]+'",'
-                eachLine=eachLine[:len(eachLine)-1]
-                eachLine+='},'
-                output+=eachLine
-        output+=']'
-        jsonTableContents=""+str(output).replace(""",]""","]")+""
-        return jsonTableContents.replace('u"','"')
-        #return str(str(results[1])+'\n'+str(attributeNames))
 
+	attributes = getAttributes(tableName)
+
+        tableContents=[]
+        for r in rawTableContents:
+                eachLine={}
+                for i in range(len(r)):
+                        eachLine[attributes[i]] = r[i].encode('ascii','ignore')
+                tableContents.append(eachLine)
+        return tableContents
+	
+
+def createColumnList(tableName):
+
+        attributes = getAttributes(tableName)
+
+        colJsonList = []
+
+        for attr in attributes:
+                col = {}
+                col['Header'] = attr.capitalize()
+                col['accessor'] = attr
+                colJsonList.append(col)
+
+	return colJsonList
+
+
+def getAttributes(tableName):
+        con = sqlite3.connect("mito.db")
+        cur = con.cursor()
+        cur.execute("PRAGMA table_info("+tableName+")")
+        attributeNames=cur.fetchall()
+        con.commit()
+        con.close()
+	return [attribute[1].encode('ascii','ignore') for attribute in attributeNames]
 
 if __name__ == '__main__':
         app.run('0.0.0.0',5000)
