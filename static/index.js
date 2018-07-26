@@ -3,7 +3,6 @@
 //import ReactTable from 'react-table'
 
 
-
 class ButtonRequired extends React.Component {
 	render(){
 		return (
@@ -29,7 +28,7 @@ class CreationOfButtons extends React.Component {
 		super(props);
 		this.state = {
 			tableNames: ['patient_nucleobase','pathogenic_prob'],
-			attributes:['patient_id','seq','pos','left_flank','ref_allele','right_flank','Variant','Cov_variant_minus','Cov_minus','Cov_variant_plus','Cov_plus','freq_variant_minus','freq_variant_plus'],
+		attributes:[],	//attributes:['patient_id','seq','pos','left_flank','ref_allele','right_flank','Variant','Cov_variant_minus','Cov_minus','Cov_variant_plus','Cov_plus','freq_variant_minus','freq_variant_plus'],
 			operatorAndOr: ['And', 'Or'],
 			condition: ['=','like','!=','<=','>=','<','>'],
 			data: '[{"seq":"ATP6","patient_id":"8527"},{"seq":"ATP8","patient_id":"8366"},{"seq":"ZTP12" , "patient_id":"2334"} , {"seq":"Bdfd","patient_id":"1000000"}]',
@@ -83,13 +82,37 @@ class CreationOfButtons extends React.Component {
                  datatype: "text/html",
                  data:"",
                  success: function(response){
-		//console.log(response["content"])
 		let jsonParsedData = JSON.parse(response)
-		console.log(jsonParsedData["content"])
-		//let jsonParsedData = response
+		//console.log(jsonParsedData["content"])
 		ReactDOM.render(<ReactTable data={jsonParsedData["content"]} columns={jsonParsedData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
                  }
 });
+
+	//var  attr = []
+
+		axios('/renderAttributeNames/patient_nucleobase')
+			.then(response => {
+				console.log(response.data.columns)
+				this.setState({
+					attributes:response.data.columns
+				})
+
+			})
+			.catch(error => console.log("Error in fetching attributes:", error));
+
+	//$.ajax({
+	//	url:"/renderAttributeNames/patient_nucleobase",
+	//	type: "POST",
+	//	datatype:"text/html",
+	//	data:"",
+	//	success:function(response){
+	//		var attr = JSON.parse(response)["columns"]
+	//		console.log(attr)
+	//		console.log("here")
+	//	}
+
+	//});
+	//this.state.attributes = attr
 
 	}
 

@@ -15,18 +15,9 @@ def index():
 
 @app.route('/renderAttributeNames/<tableName>', methods=['POST','GET'])
 def getTableAttributes(tableName):
-        con = sqlite3.connect("mito.db")
-        cur = con.cursor()
-        cur.execute("PRAGMA table_info("+tableName+")")
-        attributeNames=cur.fetchall()
-        jsonAttributeNames = """{"attributeNames":"["""
-        for i in attributeNames:
-                jsonAttributeNames+="'"+i[1]+"'"+','
-        con.commit()
-        con.close()
-        jsonAttributeNames=jsonAttributeNames[:len(jsonAttributeNames)-1]
-        jsonAttributeNames+="""]"}"""
-        return str(jsonAttributeNames)
+	attributes = {}
+	attributes["columns"] = getAttributes(tableName)
+        return json.dumps(attributes)
 
 @app.route('/renderTableContents/<tableName>', methods=['POST','GET'])
 def getTableContents(tableName):
