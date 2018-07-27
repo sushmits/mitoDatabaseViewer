@@ -1,7 +1,5 @@
-
 //import './index.css';
 //import ReactTable from 'react-table'
-
 
 class ButtonRequired extends React.Component {
 	render(){
@@ -28,23 +26,18 @@ class CreationOfButtons extends React.Component {
 		super(props);
 		this.state = {
 			tableNames: ['patient_nucleobase','pathogenic_prob'],
-		attributes:[],	//attributes:['patient_id','seq','pos','left_flank','ref_allele','right_flank','Variant','Cov_variant_minus','Cov_minus','Cov_variant_plus','Cov_plus','freq_variant_minus','freq_variant_plus'],
+			attributes: [],
 			operatorAndOr: ['And', 'Or'],
 			condition: ['=','like','!=','<=','>=','<','>'],
-			data: '[{"seq":"ATP6","patient_id":"8527"},{"seq":"ATP8","patient_id":"8366"},{"seq":"ZTP12" , "patient_id":"2334"} , {"seq":"Bdfd","patient_id":"1000000"}]',
-//		columns: [{
-//    Header: 'Sequence',
-//    accessor: 'seq' // String-based value accessors!
-//  }, {
-//    Header: 'Patient_Id',
-//    accessor: 'patient_id',
-//    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-//  }]
-
+			queryData:{
+				tableName: null,
+				filters: null
+			}
 		};
-
- 
+		this.changeTableName = this.changeTableName.bind(this);
+		this.updateFilter = this.updateFilter.bind(this); 
 		//this.baseState = this.state
+		// Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
 	}
 
 
@@ -52,11 +45,49 @@ class CreationOfButtons extends React.Component {
 		return <TextBox className={className} /> ;
 	}
 
+
+	updateFilter(id, inputType, value){
+		const fid = "id"+id
+		this.setState(prevState => ({
+    			...prevState,
+    				queryData: {
+        				...prevState.queryData,
+        					filters: {
+            						...prevState.queryData.filters, 
+            							[fid]: {
+               								...prevState.queryData.filters[fid],
+               									[inputType]: value
+								            }
+        						}
+    						}
+					}))		
+
+	}
+
+	changeTableName(id, tableList, newTableName){
+		
+		const queryJson = this.state.queryData	
+		var updatedTable = Object.assign({}, queryJson, {tableName:newTableName});
+		this.setState({queryData:updatedTable});
+		this.resetFunctionality();
+
+		axios('/renderAttributeNames/'+newTableName)
+                        .then(response => {
+                                console.log("attributes",response.data.columns)
+                                this.setState({
+                                        attributes:response.data.columns
+                                })
+
+                        })
+                        .catch(error => console.log("Error in fetching attributes:", error));
+	
+	}
+
 	render(){
 
 		return (
 			<div>
-				<span className="label_show">Choose table:</span> {this.renderSelectionBox(this.state.tableNames, "Select a table", "tableNamesId")}
+				<span className="label_show">Choose table:</span> {this.renderSelectionBox(this.state.tableNames, "Select a table", "tableNamesId", this.changeTableName)}
 				<br/>
 				<ButtonRequired className="btn btn-primary" value="add Filter" onClick={() => this.addFilterMethod()} /> {' '}
 				<ButtonRequired className="btn btn-primary" value="Submit" onClick={() => this.updateDiv()}/> {' '}
@@ -69,93 +100,122 @@ class CreationOfButtons extends React.Component {
 		);
 
 	}
-//	{/*updateDiv(){
-//		let jsonParsedData = JSON.parse(this.state.data)
-//		ReactDOM.render(<ReactTable data={jsonParsedData} columns={this.state.columns} defaultPageSize={5}/> , document.getElementById('updateTableId')) ;
 
-//	}*/}
+	showTableData(){
+	
+		const tableData = this.state.tableData
+		ReactDOM.render(<ReactTable data={tableData["content"]} columns={tableData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
+	
+	}
 
 	updateDiv(){
-	$.ajax({
-                 url: "/renderTableContents/patient_nucleobase",
-                 type: "POST",
-                 datatype: "text/html",
-                 data:"",
-                 success: function(response){
-		let jsonParsedData = JSON.parse(response)
-		//console.log(jsonParsedData["content"])
-		ReactDOM.render(<ReactTable data={jsonParsedData["content"]} columns={jsonParsedData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
-                 }
-});
 
-	//var  attr = []
+	console.log(this.state.queryData)	
+		
+		const table = this.state.queryData.tableName
 
-		axios('/renderAttributeNames/patient_nucleobase')
-			.then(response => {
-				console.log(response.data.columns)
-				this.setState({
-					attributes:response.data.columns
-				})
+		if(table){
 
-			})
-			.catch(error => console.log("Error in fetching attributes:", error));
+		axios.post('/renderTableContents/'+table)
+                        .then(response => {
+                                this.setState({
+					tableData: response.data
+                                })
+				this.showTableData();
+                        })
+                        .catch(error => console.log("Error in fetching attributes:", error));
 
-	//$.ajax({
-	//	url:"/renderAttributeNames/patient_nucleobase",
-	//	type: "POST",
-	//	datatype:"text/html",
-	//	data:"",
-	//	success:function(response){
-	//		var attr = JSON.parse(response)["columns"]
-	//		console.log(attr)
-	//		console.log("here")
-	//	}
 
-	//});
-	//this.state.attributes = attr
+
+{/*		
+		$.ajax({
+        	         url: "/renderTableContents/"+table,
+                	 type: "POST",
+                	 datatype: "text/html",
+               		 data:"",
+                 	 success: function(response){
+			 let jsonParsedData = JSON.parse(response)
+			ReactDOM.render(<ReactTable data={jsonParsedData["content"]} columns={jsonParsedData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
+                 	}
+		});
+
+*/}
+		}
+		else{
+			alert('Please select a table first!')
+		}
+
 
 	}
 
- resetFunctionality(){
+	 resetFunctionality(){
 
-	// const filterDivChildren = document.getElementById("filterDiv").childNodes
-	{/*const filterDivChildren = document.getElementById("filterDiv")
-	// let childrenlen = filterDivChildren.length
-	 for (let i = 0; i < filterDivChildren.length; i++) {
+	 	const filterDivChildren = document.getElementById("filterDiv")
+	 	while(filterDivChildren.hasChildNodes()){
+			 filterDivChildren.removeChild(filterDivChildren.firstChild);
+		 }
 
-		 //document.getElementById("filterDiv").removeChild(filterDivChildren[i])
-		 filterDivChildren.removeChild(filterDivChildren.childNodes[i])
-		 //ReactDOM.unmountComponentAtNode(document.getElementById(filterDivChildren[i].id))
-	 }
-	 */}
+                this.setState(prevState => ({
+                        ...prevState,
+                                queryData: {
+                                        ...prevState.queryData,
+                                                filters: null
+                                                }
+                                        , tableData:null }))
 
-	 const filterDivChildren = document.getElementById("filterDiv")
-	 while(filterDivChildren.hasChildNodes()){
-		 filterDivChildren.removeChild(filterDivChildren.firstChild);
-	 }
+		ReactDOM.unmountComponentAtNode(document.getElementById("updateTableId"))
+ 	}
 
-	ReactDOM.unmountComponentAtNode(document.getElementById("updateTableId"))
+	 removeFilter(id){
 
- }
+		const fid = "id"+id
+                this.setState(prevState => ({
+                        ...prevState,
+                                queryData: {
+                                        ...prevState.queryData,
+                                                filters: {
+                                                        ...prevState.queryData.filters,
+                                                                [fid]: null
+                                                        }
+                                                }
+                                        }))
 
- removeFilter(id){
+		 ReactDOM.unmountComponentAtNode(document.getElementById(id))
 
-	 ReactDOM.unmountComponentAtNode(document.getElementById(id))
+	 }	
+	
+	addFilterToState(id){
+		
+		const fid = "id"+id
+        	this.setState(prevState => ({
+                        ...prevState,
+                                queryData: {
+                                        ...prevState.queryData,
+                                                filters: {
+                                                        ...prevState.queryData.filters,
+                                                                [fid]: {
+                                                                        operator:null, attr:null, condition:null, text:null
+                                                                            }
+                                                        }
+                                                }
+                                        }))
 
- }
 
+	}
 
 	addFilterMethod() {
+
+		if(this.state.queryData.tableName){
 
 			const id = Math.random()
 			const newdiv = (<div>
 
 				<br/>
-				{this.renderSelectionBox(this.state.operatorAndOr, "Select operator","operatorsId")}
+				{this.renderSelectionBox(this.state.operatorAndOr, "operator",id, this.updateFilter)}
 				{' '}
-				{this.renderSelectionBox(this.state.attributes, "Select attribute", "attributesId")}
+				{this.renderSelectionBox(this.state.attributes, "attr", id, this.updateFilter)}
 				{' '}
-				{this.renderSelectionBox(this.state.condition, "Select condition","conditionsId")}
+				{this.renderSelectionBox(this.state.condition, "condition",id, this.updateFilter)}
 				{' '}
 				{/*this.renderTextArea("condition")*/}
 				<TextInput className="condition" placeholder="Give condition"/>
@@ -166,12 +226,18 @@ class CreationOfButtons extends React.Component {
 			d.id = id
 			document.getElementById("filterDiv").appendChild(d)
 
+			this.addFilterToState(id);
+
 		ReactDOM.render(newdiv, document.getElementById(id));
+		}
+		else{
+			alert('Please select a table first!')
+		}
 
 	}
 
-	renderSelectionBox(optionsToShow, defaultLabel , id){
-		return <SelectionBox value={optionsToShow} defaultLabel={defaultLabel} id={id}/>
+	renderSelectionBox(optionsToShow, defaultLabel , id, onChangeFn){
+		return <SelectionBox value={optionsToShow} defaultLabel={defaultLabel} id={id} onChange={onChangeFn}/>
 	}
 }
 
@@ -199,6 +265,14 @@ function Option(props) {
 
 class SelectionBox extends React.Component{
 
+	constructor(props) {
+        	super(props);
+        	this.state = {
+            		selectValue: null
+		}
+
+    	}
+
 	createOptions = (valuePassed) => {
 		let optionsList = []
 
@@ -223,9 +297,16 @@ class SelectionBox extends React.Component{
 		);
 	}
 
+	handleChange = (e) => {
+		this.setState({selectValue:e.target.value});
+		this.props.onChange(this.props.id, this.props.defaultLabel, e.target.value);
+	}
+
 	render(){
+
 		return (
-			<select>
+			<select onChange={this.handleChange}>
+			
 				<option selected disabled>{this.props.defaultLabel}</option>
 				{this.createOptions(this.props.value)}
 			</select>
@@ -234,8 +315,5 @@ class SelectionBox extends React.Component{
 	}
 
 }
-
-
-
 
 ReactDOM.render(<CreationOfButtons/>, document.getElementById('queryCreationDivId'));
