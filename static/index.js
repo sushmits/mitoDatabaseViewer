@@ -14,11 +14,15 @@ class ButtonRequired extends React.Component {
 class TextInput extends React.Component {
 	render(){
 		return (
-			<input type="text" className={this.props.className} placeholder={this.props.placeholder}>
+			<input type="text" className={this.props.className} placeholder={this.props.placeholder} onChange={this.handleChange}>
 
 			</input>
 		);
 	}
+
+	handleChange = (e) => {
+                this.props.onChange(this.props.id, this.props.defaultLabel, e.target.value);
+        }
 }
 
 class CreationOfButtons extends React.Component {
@@ -71,7 +75,7 @@ class CreationOfButtons extends React.Component {
 		this.setState({queryData:updatedTable});
 		this.resetFunctionality();
 
-		axios('/renderAttributeNames/'+newTableName)
+		axios.post('/renderAttributeNames/'+newTableName)
                         .then(response => {
                                 console.log("attributes",response.data.columns)
                                 this.setState({
@@ -116,7 +120,7 @@ class CreationOfButtons extends React.Component {
 
 		if(table){
 
-		axios.post('/renderTableContents/'+table)
+		axios.post('/renderTableContents/'+table, this.state.queryData)
                         .then(response => {
                                 this.setState({
 					tableData: response.data
@@ -126,20 +130,6 @@ class CreationOfButtons extends React.Component {
                         .catch(error => console.log("Error in fetching attributes:", error));
 
 
-
-{/*		
-		$.ajax({
-        	         url: "/renderTableContents/"+table,
-                	 type: "POST",
-                	 datatype: "text/html",
-               		 data:"",
-                 	 success: function(response){
-			 let jsonParsedData = JSON.parse(response)
-			ReactDOM.render(<ReactTable data={jsonParsedData["content"]} columns={jsonParsedData["columns"]} defaultPageSize={10}/> , document.getElementById('updateTableId')) ;
-                 	}
-		});
-
-*/}
 		}
 		else{
 			alert('Please select a table first!')
@@ -218,7 +208,7 @@ class CreationOfButtons extends React.Component {
 				{this.renderSelectionBox(this.state.condition, "condition",id, this.updateFilter)}
 				{' '}
 				{/*this.renderTextArea("condition")*/}
-				<TextInput className="condition" placeholder="Give condition"/>
+				<TextInput className="condition" placeholder="Give condition" id={id} defaultLabel="text" onChange={this.updateFilter}/>
 				{' '}
 				<ButtonRequired className="btn btn-danger" value="&times;" onClick={() => this.removeFilter(id)}/> {' '}
 			</div>)
@@ -298,7 +288,7 @@ class SelectionBox extends React.Component{
 	}
 
 	handleChange = (e) => {
-		this.setState({selectValue:e.target.value});
+		{/*this.setState({selectValue:e.target.value});*/}
 		this.props.onChange(this.props.id, this.props.defaultLabel, e.target.value);
 	}
 
