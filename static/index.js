@@ -29,7 +29,8 @@ class CreationOfButtons extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			tableNames: ['patient_nucleobase','pathogenic_prob'],
+		
+			tableNames: [],
 			attributes: [],
 			operatorAndOr: ['And', 'Or'],
 			condition: ['=','like','!=','<=','>=','<','>'],
@@ -38,6 +39,7 @@ class CreationOfButtons extends React.Component {
 				filters: null
 			}
 		};
+		this.getExistingTables()
 		this.changeTableName = this.changeTableName.bind(this);
 		this.updateFilter = this.updateFilter.bind(this); 
 		//this.baseState = this.state
@@ -67,6 +69,21 @@ class CreationOfButtons extends React.Component {
 					}))		
 
 	}
+
+
+        getExistingTables(){
+
+                axios.post('/getTables')
+                        .then(response => {
+                               	this.setState({
+                                        tableNames:response.data.tables
+                                })
+
+                        })
+                        .catch(error => console.log("Error in fetching existing tables:", error));
+
+        }
+
 
 	changeTableName(id, tableList, newTableName){
 		
