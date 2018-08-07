@@ -62,13 +62,13 @@ def geTableContents(tableName, filters):
 		i = 0
 		filterStatement += ' where '
 		if(filterList[i]["text"] is None):
-			filterList[i]["text"] = "null"
-		filterStatement += filterList[i]["attr"]+" "+filterList[i]["condition"]+" "+filterList[i]["text"]
+			filterList[i]["text"] = "-"
+		filterStatement += filterList[i]["attr"]+" "+filterList[i]["condition"]+" "+ addQuoteToStr(filterList[i]["text"])
 		i += 1
 		while i < len(filterList):
 			if(filterList[i]["text"] is None):
-                        	filterList[i]["text"] = "null"
-			filterStatement += filterList[i]["operator"]+" "+filterList[i]["attr"]+" "+filterList[i]["condition"]+" "+filterList[i]["text"]
+                        	filterList[i]["text"] = "-"
+			filterStatement += filterList[i]["operator"]+" "+filterList[i]["attr"]+" "+filterList[i]["condition"]+" "+ addQuoteToStr(filterList[i]["text"])
 			i += 1
 		
 	selectQuery = "Select * from "+tableName+filterStatement
@@ -132,6 +132,16 @@ def _decode_dict(data):
             value = _decode_dict(value)
         rv[key] = value
     return rv
+
+def addQuoteToStr(inputStr):
+
+	
+	if type(inputStr) is str:
+		returnStr = "'"+inputStr+"'"
+	else:
+		returnStr = inputStr
+
+	return returnStr
 
 if __name__ == '__main__':
         app.run('0.0.0.0',5000)

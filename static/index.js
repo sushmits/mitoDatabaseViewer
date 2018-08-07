@@ -144,7 +144,7 @@ class CreationOfButtons extends React.Component {
                                 })
 				this.showTableData();
                         })
-                        .catch(error => console.log("Error in fetching attributes:", error));
+                        .catch(error => console.log("Error in fetching table contents:", error));
 
 
 		}
