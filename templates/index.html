@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46396909-2"></script>
 	<script>
@@ -15,22 +14,28 @@
         <script type = "stylesheet" src = "{{ url_for('static', filename = 'index.css') }}" ></script>
        <script type = "text/javascript" src = "{{ url_for('static', filename = 'controller.js') }}" ></script>
 	 <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <!--script src="controller.js"></script-->
 	 <!--script src="reactController.js" type="text/babel"></script-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"> 
         <!-- Latest compiled and minified JavaScript -->
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>	
+	<!--
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+	-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
   <!-- CSS -->
-<link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
-
+<link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"> 
+<link rel="stylesheet" type="text/css" href="../static/index.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web" rel="stylesheet">
 <!-- JS -->
 <script src="https://unpkg.com/react-table@latest/react-table.js"></script>
 <script src="https://unpkg.com/react-table@latest/react-table.min.js"></script>
@@ -44,10 +49,10 @@
     </head>
 
 
-<div class="row" style="background-color: #2E4053;">
+<div class="row" style="background-color: #48C9B0;">
 	<!--div class="col-lg-5 heading"-->
 	<div class="col-xs-12 heading">
-		<h1 style=""> Mito Database Visualization </h1>
+		 Mito Database Visualization 
 
 	</div>
 
@@ -87,22 +92,24 @@
 </div>
 
 
-<div class="row" >
-		<div style="background-color: #eafafa; min-height:633px; padding-left:20px;"> <br>
+<div class="row" id="container-query-table">
+		<div> <br>
+		
+                <h4 class="indented" id="subheadings">MITO DATABASE</h4>
+  		<div class="indented" id="dropdown"></div>
+		
+		</div>
+		
 
-                <h4 class="subheadings">MITO DATABASE</h4>
-  		<div class="dropdown">
 
+
+<div class="indented" id="queryCreationDivId" onload="renderQueryCreationTaskBar()" class="row">
 </div>
-
-<div id="queryCreationDivId" onload="renderQueryCreationTaskBar()" class="row">
-
+<div id="updateTableId"></div>
 </div>
-<div id="updateTableId">
 </div>
-
+<div class="footer">
+  <address>Developed by : <a class="mailto" href="mailto:sushmitasubramani@gmail.com"> Sushmita Subramani</a> & <a class="mailto" href="mailto:anirudhagarwal113@gmail.com"> Anirudh Agarwal</a> <br> </address>
 </div>
 </body>
-</html>"
-
-
+</html>

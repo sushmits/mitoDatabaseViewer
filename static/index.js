@@ -109,7 +109,7 @@ class CreationOfButtons extends React.Component {
 		return (
 			<div>
 				<span className="label_show">Choose table:</span> {this.renderSelectionBox(this.state.tableNames, "Select a table", "tableNamesId", this.changeTableName)}
-				<br/>
+				<br/><br/>
 				<ButtonRequired className="btn btn-primary" value="add Filter" onClick={() => this.addFilterMethod()} /> {' '}
 				<ButtonRequired className="btn btn-primary" value="Submit" onClick={() => this.updateDiv()}/> {' '}
 				<ButtonRequired className="btn btn-primary" value="Reset" onClick={() => this.resetFunctionality()}/> {' '}

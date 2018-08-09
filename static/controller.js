@@ -1,4 +1,5 @@
 // function to update teh text input of the slider.
+const CADDYDIR = "../"
 function updateTextInput(slideAmount , sliderAmountVar) {
         var sliderInput = document.getElementById(sliderAmountVar);
         sliderInput.value = slideAmount;
@@ -136,12 +137,12 @@ function showFeedback()
                 url:CADDYDIR+ "../src/FeedbackReader.py",
                 type: "GET",
                 success: function(response){
-                        $("#results").html(response);
+                        $("#updateTableId").html(response);
                 }
 		});
 	//$("#results").html(response) ;
 	window.location.hash = "";
-	window.location.hash = "#results";
+	window.location.hash = "#updateTableId";
 }
 
 
@@ -158,7 +159,7 @@ function thanksFeedbackMethod()
                 type: "POST",
                 data:serializedData , 
                 success: function(response){
-                        $("#results").html(response);
+                        $("#updateTableId").html(response);
                 }
 
             });
